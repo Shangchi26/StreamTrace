@@ -3,20 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 
 const Header = () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const navigate = useNavigate();
   
   const [userDropDown, setUserDropDown] = useState(false);
 
-  
+  const logOut = () => {
+    sessionStorage.clear();
+    navigate("/login");
+  };
 
   return (
-    <header className="z-50 sticky bg-white py-6 top-0 w-full grid grid-cols-2 lg:grid-cols-[250px_auto_150px] border-b">
+    <header className="z-50 sticky bg-orange-300 py-6 top-0 w-full grid grid-cols-2 lg:grid-cols-[250px_auto_150px]">
       <div className="w-[250px] lg:order-1 flex justify-center items-center">
         <h1 className="font-extrabold text-2xl">
           <Link to="/">
             Stream
-            <span className="text-orange-400 bg-black rounded">Trace</span>
+            <span className="text-white bg-black rounded">Trace</span>
           </Link>
         </h1>
       </div>
@@ -30,19 +34,22 @@ const Header = () => {
           <BsSearch />
         </button>
       </div>
-      {localStorage.getItem("userData") ? (
+      {sessionStorage.getItem("user") ? (
         <>
           <div className="lg:order-3 flex justify-end lg:justify-start pr-16 items-center relative cursor-pointer">
-            <div onClick={() => setUserDropDown(!userDropDown)} className="relative">
-              <h3 className="text-xl">{user.userName}</h3>
+            <div
+              onClick={() => setUserDropDown(!userDropDown)}
+              className="relative"
+            >
+              <h3 className="text-xl">{user.UserName}</h3>
               <ul
                 onMouseLeave={() => setUserDropDown(false)}
-                className={`absolute border rounded-lg -left-5 w-[150px] ${
+                className={`absolute border rounded-lg bg-white -left-5 w-[150px] ${
                   userDropDown ? "block" : "hidden"
                 }`}
               >
                 <li className="border-b my-1 px-3 hover:px-5 duration-500">
-                  <Link to="/create">Create Channel</Link>
+                  <Link to="/subPackage">Create Channel</Link>
                 </li>
                 <li className="border-b my-1 px-3 hover:px-5 duration-500">
                   <Link to="/setting">Setting</Link>

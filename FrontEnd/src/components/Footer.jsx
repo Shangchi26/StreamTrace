@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  AiFillGithub,
+  AiTwotoneMail,
+  AiFillPhone,
+  AiFillGoogleCircle,
+  AiFillTwitterCircle,
+} from "react-icons/ai";
+import { FaFacebook, FaAddressCard } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <>
-      <footer className="px-40 pt-10">
-        <div className="w-full grid grid-cols-2 gap-20">
-          <div>
+      <footer className="px-5 pt-10 flex flex-col items-center bg-orange-300">
+        <div className="w-full flex justify-around gap-20">
+          <div className="max-w-[50%]">
             <h3 className="font-bold">About Company</h3>
             <p className="mt-5">
               Streaming services have become increasingly popular and have
@@ -20,15 +28,32 @@ const Footer = () => {
           <div className="">
             <h3 className="font-bold">Contact</h3>
             <ul className="mt-5">
-              <li>8A, Ton That Thuyet, My Dinh 2, HaNoi</li>
-              <li>sangtvth2207070@fpt.edu.vn</li>
-              <li>+84 559 532 643</li>
+              <li className="flex items-center">
+                <FaAddressCard size={20} className="mr-3" /> 8A, Ton That
+                Thuyet, My Dinh 2, HaNoi
+              </li>
+              <li className="flex items-center">
+                <AiTwotoneMail size={20} className="mr-3" />
+                sangtvth2207070@fpt.edu.vn
+              </li>
+              <li className="flex items-center">
+                <AiFillPhone size={20} className="mr-3" />
+                +84 559 532 643
+              </li>
             </ul>
             <ul className="flex mt-5">
-              <li className="w-8 h-8 bg-black rounded-full mx-5"></li>
-              <li className="w-8 h-8 bg-black rounded-full mx-5"></li>
-              <li className="w-8 h-8 bg-black rounded-full mx-5"></li>
-              <li className="w-8 h-8 bg-black rounded-full mx-5"></li>
+              <li className="mx-5">
+                <AiFillGithub size={30} className="w-full h-full" />
+              </li>
+              <li className="mx-5">
+                <FaFacebook size={30} className="w-full h-full" />
+              </li>
+              <li className="mx-5">
+                <AiFillGoogleCircle size={30} className="w-full h-full" />
+              </li>
+              <li className="mx-5">
+                <AiFillTwitterCircle size={30} className="w-full h-full" />
+              </li>
             </ul>
           </div>
         </div>

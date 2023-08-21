@@ -10,6 +10,9 @@ const Service = () => {
   console.log(uploadOption);
 
   //   console.log(serviceMenu);
+  const startLivestream = () => {
+    return alert('Are you want to start your Livestream')
+  }
   return (
     <>
       <div className="w-full p-20">
@@ -195,8 +198,13 @@ const Service = () => {
                 </div>
               )}
               {uploadOption === "3" && (
-                <div className="w-[300px]">
-                  <h3>Start Livestream</h3>
+                <div className="mt-5">
+                  <button
+                    onClick={startLivestream}
+                    className="bg-red-500 px-10 py-1 rounded-md text-white"
+                  >
+                    Start Livestream
+                  </button>
                 </div>
               )}
             </div>

@@ -39,11 +39,12 @@ const SideBar = () => {
     };
   }, []);
 
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   return (
     <>
       <section
-        className={`min-h-screen w-[260px] absolute lg:relative border-r bg-white z-10 duration-500 ${
+        className={`min-h-screen w-[260px] absolute lg:sticky border-r bg-orange-300 z-10 duration-500 ${
           sideBar ? "left-0" : "-left-[260px]"
         }`}
       >
@@ -58,25 +59,19 @@ const SideBar = () => {
             <FaAngleRight size={25} />
           )}{" "}
         </button>
-        
-          <div className="w-full flex justify-around items-center px-10">
-            <p
-              onClick={switchToAdmin}
-              className="cursor-pointer hover:underline"
-            >
-              Admin
-            </p>
-            <span>
-              <HiSwitchHorizontal />
-            </span>
-            <p
-              onClick={switchToUser}
-              className="cursor-pointer hover:underline"
-            >
-              User
-            </p>
-          </div>
-        
+
+        { user && user.role == "admin" && (<div className="w-full flex justify-around items-center px-10">
+          <p onClick={switchToAdmin} className="cursor-pointer hover:underline">
+            Admin
+          </p>
+          <span>
+            <HiSwitchHorizontal />
+          </span>
+          <p onClick={switchToUser} className="cursor-pointer hover:underline">
+            User
+          </p>
+        </div>
+)}
         {sideBarState === 1 && (
           <>
             {" "}
@@ -110,23 +105,35 @@ const SideBar = () => {
             <div className="w-full border-t py-2 px-5">
               <label className="font-semibold">Subscriptions</label>
               <ul className="ml-5">
-                <li className="my-2">Channel 1</li>
-                <li className="my-2">Channel 2</li>
-                <li className="my-2">Channel 3</li>
+                <li className="my-2">
+                  <Link to="/channel">Coder 2 Ngon Channel</Link>
+                </li>
+                <li className="my-2">Sang Vlog</li>
+                <li className="my-2">Dao Vlog</li>
               </ul>
             </div>
             <div className="w-full border-t py-2 px-5">
               <ul>
-                <li className="my-2 font-semibold">Favories List</li>
-                <li className="my-2 font-semibold">Wish List</li>
+                <li className="my-2 font-semibold">
+                  <Link to="/favories">Favories List</Link>
+                </li>
+                <li className="my-2 font-semibold">
+                  <Link to="/wish">Wish List</Link>
+                </li>
               </ul>
             </div>
             <div className="w-full border-t py-2 px-5">
               <label className="font-semibold">Explore</label>
               <ul className="ml-5">
-                <li className="my-2">Trending</li>
-                <li className="my-2">Music</li>
-                <li className="my-2">LiveStream</li>
+                <li className="my-2">
+                  <Link to="/trending">Trending</Link>
+                </li>
+                <li className="my-2">
+                  <Link to="/music">Music</Link>
+                </li>
+                <li className="my-2">
+                  <Link to='/livestream'>LiveStream</Link>
+                </li>
               </ul>
             </div>
           </>
@@ -154,12 +161,12 @@ const SideBar = () => {
                 <li className="my-2 hover:ml-3 cursor-pointer duration-500">
                   <Link to="/admin/provider">Service Provider Manager</Link>
                 </li>
-                <li className="my-2 hover:ml-3 cursor-pointer duration-500">
+                {/* <li className="my-2 hover:ml-3 cursor-pointer duration-500">
                   <Link to="/admin/serviceManager">Service Manager</Link>
                 </li>
                 <li className="my-2 hover:ml-3 cursor-pointer duration-500">
                   <Link to="/admin/feedbackManager">FeedBack Manager</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </>

@@ -11,54 +11,10 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  // Trong phần import, đảm bảo bạn đã import useState và useEffect từ thư viện React
+
   const handleRegister = async () => {
-    if (!fullName || !phone || !email || !userName || !password) {
-      setError('Please fill out all fields.');
-    } else if (!validateEmail(email)) {
-      setError("Invalid email format");
-    } else if (!validatePassword(password)) {
-      setError(
-        "Password must contain at least one digit and one uppercase letter, and be at least 6 characters long"
-      );
-    } else {
-      setError("");
-      // Gửi dữ liệu đăng ký đến API
-      // const registrationData = {
-      //   FullName: fullName,
-      //   Phone: phone,
-      //   Email: email,
-      //   UserName: userName,
-      //   password: password,
-      // };
-
-      // try {
-      //   const response = await fetch("http://localhost:8000/api/register", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Accept: "application/json",
-      //     },
-      //     body: JSON.stringify(registrationData),
-      //   });
-
-      //   if (response.ok) {
-      //     // Xóa dữ liệu đăng ký khỏi session
-      //     sessionStorage.removeItem("registrationData");
-
-      //     // Chuyển hướng sau khi đăng ký thành công
-      //     navigate("/");
-      //   } else {
-      //     const data = await response.json();
-      //     console.log("Registration failed:", data);
-      //   }
-      // } catch (error) {
-      //   console.error("Error:", error);
-      // }
-    }
-  };
-
-  // Lưu tạm thời dữ liệu đăng ký vào session
-  const saveDataToSession = () => {
+    setError("");
     const registrationData = {
       FullName: fullName,
       Phone: phone,
@@ -67,10 +23,27 @@ const Register = () => {
       password: password,
     };
 
-    sessionStorage.setItem(
-      "registrationData",
-      JSON.stringify(registrationData)
-    );
+    try {
+      const response = await fetch("http://localhost:8000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(registrationData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        sessionStorage.setItem("user", JSON.stringify(data));
+        return navigate("/");
+      } else {
+        setError("Registration failed. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("An error occurred while processing your request.");
+    }
   };
 
   const validateEmail = (email) => {
@@ -141,7 +114,6 @@ const Register = () => {
         <button
           className="w-full my-5 py-1 bg-blue-400 rounded-lg hover:bg-blue-600 duration-500 hover:text-white"
           onClick={() => {
-            saveDataToSession();
             handleRegister();
           }}
         >
